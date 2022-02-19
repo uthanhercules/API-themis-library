@@ -1,5 +1,8 @@
+const customerToast = require('../messages/toasts');
+
 const newCustomer = async (req: any, res: any) => {
-  res.send('Olá, cliente!');
+  customerToast.consoleToast.success(0);
+  res.send(customerToast.clientToast.success(0));
 };
 
 module.exports = {

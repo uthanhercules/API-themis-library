@@ -1,5 +1,8 @@
+const procedureToast = require('../messages/toasts');
+
 const newProcedure = async (req: any, res: any) => {
-  res.send('Olá, processo!');
+  procedureToast.consoleToast.success(0);
+  res.send(procedureToast.clientToast.success(0));
 };
 
 module.exports = {
