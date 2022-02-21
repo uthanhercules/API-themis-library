@@ -15,6 +15,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "import/extensions": "never"
+        "import/extensions": 0,
+        "import/no-unresolved": 0
     }
 }
