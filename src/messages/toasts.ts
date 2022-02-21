@@ -22,4 +22,8 @@ const clientToast = {
   error: (code: number) => errMessages[code],
 };
 
-module.exports = { consoleToast, clientToast };
+const catchToast = (error: string) => {
+  return `\x1b[41m\x1b[30m PROBLEM \x1b[37m\x1b[0m ${error}`;
+}
+
+module.exports = { consoleToast, clientToast, catchToast };
