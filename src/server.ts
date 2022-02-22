@@ -1,11 +1,12 @@
 import express from 'express';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
-const router = require('./router');
+const routes = require('./router');
 
 app.use(express.json());
-app.use(router);
+app.use(routes);
 
 app.listen(8000);

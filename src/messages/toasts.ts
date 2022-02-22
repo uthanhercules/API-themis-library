@@ -11,4 +11,4 @@ const clientToast = {
 
 const catchToast = (error: string) => `${error}`;
 
-module.exports = { clientToast, catchToast };
+export = { clientToast, catchToast };

@@ -1,14 +1,15 @@
-const router = require('express');
+import express from 'express';
+import admin from './controllers/admin';
+import procedure from './controllers/procedures';
 
-const route = router();
-const tokenVerification = require('./middlewares/tokenVerify');
-const procedure = require('./controllers/procedures');
-const admin = require('./controllers/admin');
+import tokenVerify from './middlewares/tokenVerify';
 
-route.post('/admin/login', admin.adminLogin);
+const route = express();
+
+route.post('/admin/login', admin.login);
 route.post('/admin/new-password', admin.newPassword);
 
-route.use(tokenVerification);
+route.use(tokenVerify);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 
-module.exports = route;
+export = route;
