@@ -3,12 +3,15 @@ import jwt from 'jsonwebtoken';
 import knex from '../models/connection';
 import toast from '../messages/toasts';
 
+const { adminLoginSchema, adminNewPasswordSchema } = require('../validations/adminSchema');
+
 const jwtSecret: any = process.env.TOKEN_SECRET;
 
 const login = async (req: any, res: any) => {
   const { username, password } = req.body;
 
   try {
+    await adminLoginSchema.validate(req.body);
     const listOfAdminByUsername = await knex('users').select('id', 'password').where({ username });
 
     if (listOfAdminByUsername.length === 0) {
@@ -33,6 +36,7 @@ const login = async (req: any, res: any) => {
 const newPassword = async (req: any, res:any) => {
   const { username, password, recoveryKey } = req.body;
   try {
+    await adminNewPasswordSchema.validate(req.body);
     const listOfAdminByUsername = await knex('users').select('id', 'password', 'recovery_key').where({ username });
 
     if (listOfAdminByUsername.length === 0) {
