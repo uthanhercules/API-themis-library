@@ -47,6 +47,17 @@ const editAdminPassword = async (username: string, password: string) => {
   await adminDb('users').update({ password }).where({ username });
 };
 
+const verifyUserByToken = async (token: string) => {
+  const { id } = jwt.verify(token, jwtSecret);
+  const userOfToken = await adminDb('users').select('id').where({ id });
+
+  if (userOfToken.length === 0) {
+    return false;
+  }
+
+  return true;
+};
+
 module.exports = {
   getAdminByUsername,
   verifyRecoveryKey,
@@ -54,4 +65,5 @@ module.exports = {
   verifyPassword,
   generateAdminToken,
   editAdminPassword,
+  verifyUserByToken,
 };

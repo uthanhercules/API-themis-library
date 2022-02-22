@@ -11,7 +11,6 @@ const adminLogin = async (req: any, res: any) => {
     }
 
     const passwordIsValid = await adminModel.verifyPassword(username, password);
-    console.log(passwordIsValid);
 
     if (!passwordIsValid.ok) {
       return res.status(404).json(adminToast.clientToast.error(1));
