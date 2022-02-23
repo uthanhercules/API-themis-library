@@ -3,4 +3,4 @@ const { pt } = require('yup-locales');
 
 yup.setLocale(pt);
 
-module.exports = yup;
+export = yup;

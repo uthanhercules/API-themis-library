@@ -1,12 +1,15 @@
-const router = require('express');
+import express from 'express';
+import admin from './controllers/admin';
+import procedure from './controllers/procedures';
 
-const route = router();
-const customer = require('./controllers/customer');
-const procedure = require('./controllers/procedures');
-const admin = require('./controllers/admin');
+import tokenVerify from './middlewares/tokenVerify';
 
-route.get('/admin/test', admin.adminTest);
-route.get('/customer/new', customer.newCustomer);
-route.get('/procedure/new', procedure.newProcedure);
+const route = express();
 
-module.exports = route;
+route.post('/admin/login', admin.login);
+route.post('/admin/new-password', admin.newPassword);
+
+route.use(tokenVerify);
+route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
+
+export = route;

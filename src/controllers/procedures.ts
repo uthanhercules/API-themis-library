@@ -1,10 +1,15 @@
-const procedureToast = require('../messages/toasts');
+import knex from '../models/connection';
+import toast from '../messages/toasts';
 
-const newProcedure = async (req: any, res: any) => {
-  procedureToast.consoleToast.success(0);
-  res.send(procedureToast.clientToast.success(0));
+const listLastFiveProcedures = async (req: any, res: any) => {
+  try {
+    const lastProcedures = await knex('procedures').select('procedure_number', 'customer_id', 'name', 'updated').orderBy('updated', 'DESC');
+    return res.status(200).json(lastProcedures.slice(0, 5));
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
 };
 
-module.exports = {
-  newProcedure,
+export = {
+  listLastFiveProcedures,
 };

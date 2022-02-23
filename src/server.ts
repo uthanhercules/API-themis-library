@@ -1,11 +1,14 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
-const router = require('./router');
+const routes = require('./router');
 
+app.use(cors());
 app.use(express.json());
-app.use(router);
+app.use(routes);
 
 app.listen(8000);
