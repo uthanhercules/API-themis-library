@@ -4,12 +4,12 @@ import toast from '../messages/toasts';
 
 const jwtSecret: any = process.env.TOKEN_SECRET;
 // eslint-disable-next-line consistent-return
-const tokenVerify = async (req: any, res: any, next: any) => {
+const adminTokenVerify = async (req: any, res: any, next: any) => {
   const userToken = req.header('userToken');
 
   try {
     const userData: any = jwt.verify(userToken, jwtSecret);
-    const listOfUsersById = await knex('users').select('id').where({ id: userData.id });
+    const listOfUsersById = await knex('admin').select('id').where({ id: userData.id });
 
     if (listOfUsersById.length === 0) {
       return res.status(403).json(toast.clientToast.error(3));
@@ -21,4 +21,4 @@ const tokenVerify = async (req: any, res: any, next: any) => {
   }
 };
 
-export = tokenVerify;
+export = adminTokenVerify;
