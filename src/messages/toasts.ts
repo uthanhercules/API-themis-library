@@ -3,6 +3,8 @@ const errMessages = [
   'Nome de usuário ou senha inválidos.',
   'Nome de usuário ou código de recuperação inválidos!',
   'Você precisa estar logado para fazer isso.',
+  'Este nome de usuário já está em uso',
+  'Este email já está em uso',
 ];
 
 const clientToast = {

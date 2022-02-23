@@ -8,10 +8,18 @@ const adminLoginSchema = yup.object().shape({
 const adminNewPasswordSchema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
-  recoveryKey: yup.string(0).required(),
+  recoveryKey: yup.string().required(),
 });
 
-module.exports = {
+const adminNewUserSchema = yup.object().shape({
+  adminId: yup.string().required(),
+  username: yup.string().required(),
+  password: yup.string().required(),
+  email: yup.email().required(),
+});
+
+export = {
   adminLoginSchema,
   adminNewPasswordSchema,
+  adminNewUserSchema,
 };
