@@ -15,7 +15,7 @@ const adminNewUserSchema = yup.object().shape({
   adminId: yup.string().required(),
   username: yup.string().required(),
   password: yup.string().required(),
-  email: yup.email().required(),
+  email: yup.string().email().required(),
 });
 
 export = {
