@@ -10,6 +10,7 @@ route.post('/admin/login', admin.login);
 route.post('/admin/new-password', admin.newPassword);
 
 route.use(adminTokenVerify);
+route.get('/admin/auth-verify', admin.authVerify);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 route.post('/admin/new-user', admin.newUser);
 

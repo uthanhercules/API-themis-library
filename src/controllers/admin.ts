@@ -101,8 +101,11 @@ const newUser = async (req: any, res: any) => {
   }
 };
 
+const authVerify = (req: any, res:any) => res.status(200).json(true);
+
 export = {
   login,
   newPassword,
   newUser,
+  authVerify,
 };
