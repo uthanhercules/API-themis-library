@@ -2,7 +2,7 @@ import express from 'express';
 import admin from './controllers/admin';
 import procedure from './controllers/procedures';
 
-import adminTokenVerify from './middlewares/tokenVerify';
+import adminTokenVerify from './middlewares/adminTokenVerify';
 
 const route = express();
 

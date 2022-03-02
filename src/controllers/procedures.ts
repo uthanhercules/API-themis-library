@@ -10,6 +10,16 @@ const listLastFiveProcedures = async (req: any, res: any) => {
   }
 };
 
+const listAllProcedures = async (req: any, res: any) => {
+  try {
+    const allProcedures = await knex('procedures').select('*').orderBy('updated', 'DESC');
+    return res.status(200).json(allProcedures);
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 export = {
   listLastFiveProcedures,
+  listAllProcedures,
 };
