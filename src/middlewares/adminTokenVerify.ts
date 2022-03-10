@@ -9,7 +9,7 @@ const adminTokenVerify = async (req: any, res: any, next: any) => {
 
   try {
     const userData: any = jwt.verify(userToken, jwtSecret);
-    const listOfUsersById = await knex('admin').select('id').where({ id: userData.id });
+    const listOfUsersById = await knex('users_admin').select('id').where({ id: userData.id });
 
     if (listOfUsersById.length === 0) {
       return res.status(403).json(toast.clientToast.error(3));

@@ -6,12 +6,12 @@ import adminTokenVerify from './middlewares/adminTokenVerify';
 
 const route = express();
 
-route.post('/admin/login', admin.login);
-route.post('/admin/new-password', admin.newPassword);
+route.post('/admin/login', admin.loginController);
+route.post('/admin/new-password', admin.newPasswordController);
 
 route.use(adminTokenVerify);
-route.get('/admin/auth-verify', admin.authVerify);
+route.get('/admin/auth-verify', admin.authVerifyController);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
-route.post('/admin/new-user', admin.newUser);
+route.post('/admin/new-user', admin.newUserController);
 
 export = route;
