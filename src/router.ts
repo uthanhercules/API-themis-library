@@ -1,6 +1,7 @@
 import express from 'express';
 import admin from './controllers/admin';
 import procedure from './controllers/procedures';
+import customer from './controllers/costumer';
 
 import adminTokenVerify from './middlewares/adminTokenVerify';
 
@@ -13,5 +14,7 @@ route.use(adminTokenVerify);
 route.get('/admin/auth-verify', admin.authVerifyController);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 route.post('/admin/new-user', admin.newUserController);
+
+route.post('/customer/create-costumer', customer.createCustomer)
 
 export = route;
