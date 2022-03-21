@@ -15,6 +15,6 @@ route.get('/admin/auth-verify', admin.authVerifyController);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 route.post('/admin/new-user', admin.newUserController);
 
-route.delete('/customer/delete-customer', customer.deleteCustomer)
+route.put('/customer/update-customer', customer.updateCustomer)
 
 export = route;
