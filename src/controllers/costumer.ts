@@ -54,4 +54,4 @@ const deleteCustomer = async (req: any, res: any) => {
   }
 };
 
-export = { createCustomer, deleteCustomer }
+export = { createCustomer, deleteCustomer };
