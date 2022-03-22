@@ -4,7 +4,7 @@ import passGen from 'generate-password';
 import toast from '../messages/toasts';
 import knex from '../models/connection';
 
-const { createCustomerSchema } = require('../validations/customerSchema');
+const { createCustomerSchema, deleteCustomerSchema } = require('../validations/customerSchema');
 
 const createCustomer = async (req: any, res: any) => {
   const { admin_id, full_name, email } = req.body;
@@ -36,4 +36,22 @@ const createCustomer = async (req: any, res: any) => {
   }
 };
 
-export = { createCustomer }
+const deleteCustomer = async (req: any, res: any) => {
+  const { id } = req.body;
+
+  try {
+    await deleteCustomerSchema.validate(req.body);
+    const customerListById = await knex('customers').select('id').where({ id });
+    if (customerListById.length === 0) {
+      return res.status(400).json(toast.clientToast.error(6));
+    }
+
+    await knex('customers').delete().where({ id });
+
+    return res.status(203).json('Cliente deletado com sucesso!');
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
+export = { createCustomer, deleteCustomer }

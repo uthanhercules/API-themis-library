@@ -5,6 +5,7 @@ const errMessages = [
   'Você precisa estar logado para fazer isso.',
   'Este nome de usuário já está em uso',
   'Este email já está registrado',
+  'Este cliente não está registrado na base de dados.',
 ];
 
 const clientToast = {
