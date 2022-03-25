@@ -36,4 +36,3 @@ export = {
   updateCustomerFullNameSchema,
   updateCustomerSchema,
 };
-

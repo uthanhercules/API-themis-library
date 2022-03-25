@@ -4,7 +4,13 @@ import passGen from 'generate-password';
 import toast from '../messages/toasts';
 import knex from '../models/connection';
 
-const { updateCustomerEmailSchema, updateCustomerFullNameSchema, updateCustomerSchema, createCustomerSchema, deleteCustomerSchema } = require('../validations/customerSchema');
+const {
+  updateCustomerSchema,
+  createCustomerSchema,
+  deleteCustomerSchema,
+  updateCustomerEmailSchema,
+  updateCustomerFullNameSchema,
+} = require('../validations/customerSchema');
 
 const updateCustomer = async (req: any, res: any) => {
   const {
