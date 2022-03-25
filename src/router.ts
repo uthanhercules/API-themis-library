@@ -15,6 +15,6 @@ route.get('/admin/auth-verify', admin.authVerifyController);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 route.post('/admin/new-user', admin.newUserController);
 
-route.put('/customer/update-customer', customer.updateCustomer)
+route.patch('/customer/update', customer.updateCustomer);
 
 export = route;
