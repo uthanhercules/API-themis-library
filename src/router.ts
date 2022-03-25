@@ -16,6 +16,7 @@ route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 route.post('/admin/new-user', admin.newUserController);
 
 route.post('/customer/create', customer.createCustomer);
+route.patch('/customer/update', customer.updateCustomer);
 route.delete('/customer/delete', customer.deleteCustomer);
 
 export = route;
