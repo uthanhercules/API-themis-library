@@ -3,14 +3,14 @@ import admin from './controllers/admin';
 import procedure from './controllers/procedures';
 import customer from './controllers/costumer';
 
-import adminTokenVerify from './middlewares/adminTokenVerify';
+import loginVerify from './middlewares/loginVerify';
 
 const route = express();
 
 route.post('/login', admin.loginController);
 route.post('/admin/new-password', admin.newPasswordController);
 
-route.use(adminTokenVerify);
+route.use(loginVerify);
 route.get('/admin/auth-verify', admin.authVerifyController);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 

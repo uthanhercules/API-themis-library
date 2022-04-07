@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import knex from '../models/connection';
 import toast from '../messages/toasts';
+import adminModel from '../models/adminModel';
 
 const jwtSecret: any = process.env.TOKEN_SECRET;
 // eslint-disable-next-line consistent-return
@@ -9,9 +9,10 @@ const adminTokenVerify = async (req: any, res: any, next: any) => {
 
   try {
     const userData: any = jwt.verify(userToken, jwtSecret);
-    const listOfUsersById = await knex('users_admin').select('id').where({ id: userData.id });
+    const adminList = await adminModel.adminsById(userData.id);
+    const admin = adminList[0];
 
-    if (listOfUsersById.length === 0) {
+    if (!admin) {
       return res.status(403).json(toast.clientToast.error(3));
     }
 
