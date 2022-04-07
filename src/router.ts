@@ -8,7 +8,7 @@ import adminTokenVerify from './middlewares/adminTokenVerify';
 const route = express();
 
 route.post('/login', admin.loginController);
-// route.post('/admin/new-password', admin.newPasswordController);
+route.post('/admin/new-password', admin.newPasswordController);
 
 route.use(adminTokenVerify);
 route.get('/admin/auth-verify', admin.authVerifyController);
