@@ -9,7 +9,7 @@ const adminTokenVerify = async (req: any, res: any, next: any) => {
 
   try {
     const userData: any = jwt.verify(userToken, jwtSecret);
-    const adminList = await adminModel.adminsById(userData.id);
+    const adminList = await adminModel.adminById(userData.id);
     const admin = adminList[0];
 
     if (!admin) {

@@ -11,7 +11,7 @@ const loginController = async (req: any, res: any) => {
 
   try {
     await adminValidation.login.validate(req.body);
-    const adminList = await adminModel.adminsByLogin(login);
+    const adminList = await adminModel.adminByLogin(login);
     const admin = adminList[0];
 
     if (!admin) {
@@ -38,7 +38,7 @@ const newPasswordController = async (req: any, res: any) => {
 
   try {
     await adminValidation.newPassword.validate(req.body);
-    const adminList = await adminModel.adminsById(userId);
+    const adminList = await adminModel.adminById(userId);
     const admin = adminList[0];
 
     if (!admin) {

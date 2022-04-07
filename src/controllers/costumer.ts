@@ -2,7 +2,7 @@
 import crypto from 'crypto';
 import passGen from 'generate-password';
 import toast from '../messages/toasts';
-import knex from '../models/connection';
+import customerModel from '../models/customerModel';
 
 const {
   updateCustomerSchema,
@@ -14,14 +14,16 @@ const {
 
 const updateCustomer = async (req: any, res: any) => {
   const {
-    customer_id, admin_id, full_name, email,
+    customer_id, full_name, email,
   } = req.body;
 
   let dataBlock: object;
 
   try {
-    const customerListById = await knex('customers').select('id').where({ id: customer_id, admin_id });
-    if (customerListById.length === 0) {
+    const customerList = await customerModel.customerById(customer_id);
+    const customer = customerList[0];
+
+    if (!customer) {
       return res.status(404).json('Este cliente não existe.');
     }
 
@@ -48,7 +50,7 @@ const updateCustomer = async (req: any, res: any) => {
       return res.status(400).json('Nenhum campo está preenchido');
     }
 
-    await knex('customers').update(dataBlock).where({ id: customer_id });
+    await customerModel.updateCustomerData(dataBlock, customer_id);
     return res.status(203).json('Cliente atualizado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
@@ -56,13 +58,15 @@ const updateCustomer = async (req: any, res: any) => {
 };
 
 const createCustomer = async (req: any, res: any) => {
-  const { admin_id, full_name, email } = req.body;
+  const { full_name, email } = req.body;
 
   try {
     await createCustomerSchema.validate(req.body);
 
-    const customerListByEmail = await knex('customers').select('id').where({ email });
-    if (customerListByEmail.length > 0) {
+    const customerList = await customerModel.customerByEmail(email);
+    const customer = customerList[0];
+
+    if (customer) {
       return res.status(400).json(toast.clientToast.error(5));
     }
 
@@ -71,9 +75,8 @@ const createCustomer = async (req: any, res: any) => {
       length: 12, numbers: true, uppercase: false, lowercase: false, symbols: false,
     });
 
-    await knex('customers').insert({
+    await customerModel.newCustomer({
       id: userId,
-      admin_id,
       full_name,
       query_code: queryCode,
       email,
@@ -90,12 +93,14 @@ const deleteCustomer = async (req: any, res: any) => {
 
   try {
     await deleteCustomerSchema.validate(req.body);
-    const customerListById = await knex('customers').select('id').where({ id });
-    if (customerListById.length === 0) {
+    const customerList = await customerModel.customerById(id);
+    const customer = customerList[0];
+
+    if (!customer) {
       return res.status(400).json(toast.clientToast.error(6));
     }
 
-    await knex('customers').delete().where({ id });
+    await customerModel.excludeCustomer(id);
 
     return res.status(203).json('Cliente deletado com sucesso!');
   } catch (error: any) {
