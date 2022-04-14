@@ -18,4 +18,6 @@ route.post('/customer/create', customer.createCustomer);
 route.patch('/customer/update', customer.updateCustomer);
 route.delete('/customer/delete', customer.deleteCustomer);
 
+route.post('/procedure/create', procedure.createProcedure);
+
 export = route;
