@@ -5,6 +5,17 @@ const listProcedures = async () => {
   return list;
 };
 
+const listProcedureByNumber = async (procedureNumber: number) => {
+  const list = await knex('procedures').select('*').where({ procedure_number: procedureNumber }).orderBy('updated', 'desc');
+  return list;
+};
+
+const newProcedure = async (data: object) => {
+  await knex('procedures').insert(data);
+};
+
 export = {
   listProcedures,
+  listProcedureByNumber,
+  newProcedure,
 };
