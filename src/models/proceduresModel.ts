@@ -6,7 +6,7 @@ const listProcedures = async () => {
 };
 
 const listProcedureByNumber = async (procedureNumber: number) => {
-  const list = await knex('procedures').select('*').where({ procedure_number: procedureNumber });
+  const list = await knex('procedures').select('*').where({ procedure_number: procedureNumber }).orderBy('updated', 'desc');
   return list;
 };
 

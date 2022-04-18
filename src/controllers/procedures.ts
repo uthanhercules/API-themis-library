@@ -44,7 +44,7 @@ const createProcedure = async (req: any, res: any) => {
       id,
       customer_id,
       customer_name,
-      procedure_number,
+      procedure_number: procedure_number.toString(),
       name,
       description,
       files: filesFormated,
@@ -60,8 +60,49 @@ const createProcedure = async (req: any, res: any) => {
   }
 };
 
+const createProcedureStep = async (req: any, res: any) => {
+  const {
+    customer_id, customer_name, procedure_number, name, description, files, finished,
+  } = req.body;
+  try {
+    await procedureValidation.createProcedureStepSchema.validate(req.body);
+    const proceduresByNumber: any = await proceduresModel.listProcedureByNumber(procedure_number);
+
+    if (proceduresByNumber.length === 0) {
+      return res.status(400).json('Este processo não está registrado');
+    }
+
+    if (proceduresByNumber[0].finished) return res.status(400).json('Este processo já está finalizado');
+
+    const actualDate = new Date();
+    const updated = actualDate.getTime();
+    const id = crypto.randomUUID();
+    const filesArray = files.split(', ');
+    const filesFormated = JSON.stringify(filesArray);
+
+    const dataBlock = {
+      id,
+      customer_id,
+      customer_name,
+      procedure_number: procedure_number.toString(),
+      name,
+      description,
+      files: filesFormated,
+      updated,
+      finished,
+    };
+
+    await proceduresModel.newProcedure(dataBlock);
+
+    return res.status(200).json('Nova etapa do processo criada com sucesso!');
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 export = {
   listLastFiveProcedures,
   listAllProcedures,
   createProcedure,
+  createProcedureStep,
 };
