@@ -100,9 +100,29 @@ const createProcedureStep = async (req: any, res: any) => {
   }
 };
 
+const deleteProcedure = async (req: any, res: any) => {
+  const { procedure_number } = req.body;
+
+  try {
+    await procedureValidation.deleteProcedureSchema.validate(req.body);
+    const proceduresByNumber: any = await proceduresModel.listProcedureByNumber(procedure_number);
+
+    if (proceduresByNumber.length === 0) {
+      return res.status(400).json('Este processo não está registrado');
+    }
+
+    await proceduresModel.excludeProcedure(procedure_number);
+
+    return res.status(203).json('Processo deletado com sucesso!');
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 export = {
   listLastFiveProcedures,
   listAllProcedures,
   createProcedure,
   createProcedureStep,
+  deleteProcedure,
 };

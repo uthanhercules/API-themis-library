@@ -19,7 +19,12 @@ const createProcedureStepSchema = yup.object().shape({
   finished: yup.boolean().required(),
 });
 
+const deleteProcedureSchema = yup.object().shape({
+  procedure_number: yup.string().required(),
+});
+
 export = {
   createProcedureSchema,
   createProcedureStepSchema,
+  deleteProcedureSchema,
 }
