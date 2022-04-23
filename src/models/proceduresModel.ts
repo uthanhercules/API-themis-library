@@ -18,9 +18,14 @@ const excludeProcedure = async (procedureNumber: number) => {
   await knex('procedures').delete().where({ procedure_number: procedureNumber });
 };
 
+const updateProcedure = async (data: object, procedureNumber: number) => {
+  await knex('procedures').update(data).where({ procedure_number: procedureNumber });
+};
+
 export = {
   listProcedures,
   listProcedureByNumber,
   newProcedure,
   excludeProcedure,
+  updateProcedure,
 };

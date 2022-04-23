@@ -21,5 +21,6 @@ route.delete('/customer/delete', customer.deleteCustomer);
 route.post('/procedure/create', procedure.createProcedure);
 route.post('/procedure/create-step', procedure.createProcedureStep);
 route.delete('/procedure/delete', procedure.deleteProcedure);
+route.put('/procedure/update', procedure.updateProcedure);
 
 export = route;

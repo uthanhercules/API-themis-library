@@ -23,8 +23,19 @@ const deleteProcedureSchema = yup.object().shape({
   procedure_number: yup.string().required(),
 });
 
+const updateProcedureSchema = yup.object().shape({
+  customer_id: yup.string().required(),
+  procedure_number: yup.string().required(),
+  name: yup.string().required(),
+  customer_name: yup.string().required(),
+  description: yup.string().required(),
+  files: yup.string().required(),
+  finished: yup.boolean().required(),
+});
+
 export = {
   createProcedureSchema,
   createProcedureStepSchema,
   deleteProcedureSchema,
+  updateProcedureSchema,
 }
