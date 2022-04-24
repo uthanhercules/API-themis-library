@@ -24,6 +24,7 @@ const deleteProcedureSchema = yup.object().shape({
 });
 
 const updateProcedureSchema = yup.object().shape({
+  id: yup.string().required(),
   customer_id: yup.string().required(),
   procedure_number: yup.string().required(),
   name: yup.string().required(),

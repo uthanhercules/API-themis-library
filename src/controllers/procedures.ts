@@ -121,7 +121,7 @@ const deleteProcedure = async (req: any, res: any) => {
 
 const updateProcedure = async (req: any, res: any) => {
   const {
-    customer_id, customer_name, procedure_number, name, description, files, finished,
+    id, customer_id, customer_name, procedure_number, name, description, files, finished,
   } = req.body;
 
   try {
@@ -140,6 +140,7 @@ const updateProcedure = async (req: any, res: any) => {
     const filesFormated = JSON.stringify(filesArray);
 
     const dataBlock = {
+      id,
       customer_id,
       customer_name,
       procedure_number: procedure_number.toString(),
@@ -150,7 +151,7 @@ const updateProcedure = async (req: any, res: any) => {
       finished,
     };
 
-    await proceduresModel.updateProcedure(dataBlock, procedure_number);
+    await proceduresModel.updateProcedure(dataBlock, id);
 
     return res.status(200).json('Processo editado com sucesso!');
   } catch (error: any) {
