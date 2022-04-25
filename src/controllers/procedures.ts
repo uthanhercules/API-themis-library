@@ -119,10 +119,51 @@ const deleteProcedure = async (req: any, res: any) => {
   }
 };
 
+const updateProcedure = async (req: any, res: any) => {
+  const {
+    id, customer_id, customer_name, procedure_number, name, description, files, finished,
+  } = req.body;
+
+  try {
+    await procedureValidation.updateProcedureSchema.validate(req.body);
+
+    const proceduresByNumber: any = await proceduresModel.listProcedureByNumber(procedure_number);
+    if (proceduresByNumber.length === 0) {
+      return res.status(400).json('Este processo não está registrado');
+    }
+
+    if (proceduresByNumber[0].finished) return res.status(400).json('Este processo já está finalizado');
+
+    const actualDate = new Date();
+    const updated = actualDate.getTime();
+    const filesArray = files.split(', ');
+    const filesFormated = JSON.stringify(filesArray);
+
+    const dataBlock = {
+      id,
+      customer_id,
+      customer_name,
+      procedure_number: procedure_number.toString(),
+      name,
+      description,
+      files: filesFormated,
+      updated,
+      finished,
+    };
+
+    await proceduresModel.updateProcedure(dataBlock, id);
+
+    return res.status(200).json('Processo editado com sucesso!');
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 export = {
   listLastFiveProcedures,
   listAllProcedures,
   createProcedure,
   createProcedureStep,
   deleteProcedure,
+  updateProcedure,
 };
