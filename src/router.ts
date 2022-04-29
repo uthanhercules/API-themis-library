@@ -7,11 +7,13 @@ import loginVerify from './middlewares/loginVerify';
 
 const route = express();
 
+route.post('/signup', admin.signUpAdmin);
 route.post('/login', admin.loginController);
 route.post('/new-password', admin.newPasswordController);
 
 route.use(loginVerify);
 route.get('/auth-verify', admin.authVerifyController);
+route.put('/admin', admin.updateAdmin);
 route.get('/procedure/list-recent', procedure.listLastFiveProcedures);
 
 route.post('/customer/create', customer.createCustomer);
