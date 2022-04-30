@@ -1,4 +1,4 @@
-const yup = require('./config');
+const yup = require("./config");
 
 const signUp = yup.object().shape({
   login: yup.string().required(),

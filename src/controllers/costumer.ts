@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import crypto from 'crypto';
-import passGen from 'generate-password';
-import toast from '../messages/toasts';
-import customerModel from '../models/customerModel';
+import crypto from "crypto";
+import passGen from "generate-password";
+import toast from "../messages/toasts";
+import customerModel from "../models/customerModel";
 
 const {
   updateCustomerSchema,
@@ -10,12 +10,10 @@ const {
   deleteCustomerSchema,
   updateCustomerEmailSchema,
   updateCustomerFullNameSchema,
-} = require('../validations/customerSchema');
+} = require("../validations/customerSchema");
 
 const updateCustomer = async (req: any, res: any) => {
-  const {
-    customer_id, full_name, email,
-  } = req.body;
+  const { customer_id, full_name, email } = req.body;
 
   let dataBlock: object;
 
@@ -24,34 +22,34 @@ const updateCustomer = async (req: any, res: any) => {
     const customer = customerList[0];
 
     if (!customer) {
-      return res.status(404).json('Este cliente não existe.');
+      return res.status(404).json("Este cliente não existe.");
     }
 
-    if (email && email.trim() !== '' && full_name && full_name.trim() !== '') {
+    if (email && email.trim() !== "" && full_name && full_name.trim() !== "") {
       await updateCustomerSchema.validate(req.body);
 
       dataBlock = {
         full_name,
         email,
       };
-    } else if (email && email.trim() !== '') {
+    } else if (email && email.trim() !== "") {
       await updateCustomerEmailSchema.validate(req.body);
 
       dataBlock = {
         email,
       };
-    } else if (full_name && full_name.trim() !== '') {
+    } else if (full_name && full_name.trim() !== "") {
       await updateCustomerFullNameSchema.validate(req.body);
 
       dataBlock = {
         full_name,
       };
     } else {
-      return res.status(400).json('Nenhum campo está preenchido');
+      return res.status(400).json("Nenhum campo está preenchido");
     }
 
     await customerModel.updateCustomerData(dataBlock, customer_id);
-    return res.status(203).json('Cliente atualizado com sucesso!');
+    return res.status(203).json("Cliente atualizado com sucesso!");
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -72,7 +70,11 @@ const createCustomer = async (req: any, res: any) => {
 
     const userId = await crypto.randomUUID();
     const queryCode = await passGen.generate({
-      length: 12, numbers: true, uppercase: false, lowercase: false, symbols: false,
+      length: 12,
+      numbers: true,
+      uppercase: false,
+      lowercase: false,
+      symbols: false,
     });
 
     await customerModel.newCustomer({
@@ -82,7 +84,7 @@ const createCustomer = async (req: any, res: any) => {
       email,
     });
 
-    return res.status(203).json('Cliente criado com sucesso!');
+    return res.status(203).json("Cliente criado com sucesso!");
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -102,7 +104,7 @@ const deleteCustomer = async (req: any, res: any) => {
 
     await customerModel.excludeCustomer(id);
 
-    return res.status(203).json('Cliente deletado com sucesso!');
+    return res.status(203).json("Cliente deletado com sucesso!");
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
