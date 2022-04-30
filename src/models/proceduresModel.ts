@@ -5,13 +5,14 @@ interface IProcedure {
   customer_id: string,
   name: string,
   updated: string,
-};
+}
 
 const listProcedures = async () => {
   const list = await knex('procedures').select('procedure_number', 'customer_id', 'name', 'updated').orderBy('updated', 'DESC');
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number !== list[position-1].procedure_number) return procedure;
+    if (procedure.procedure_number !== list[position - 1].procedure_number) return procedure;
+    return procedure;
   });
 
   return uniqueList;
@@ -21,7 +22,8 @@ const listProcedureByNumber = async (procedureNumber: number) => {
   const list = await knex('procedures').select('*').where({ procedure_number: procedureNumber }).orderBy('updated', 'DESC');
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number !== list[position-1].procedure_number) return procedure;
+    if (procedure.procedure_number !== list[position - 1].procedure_number) return procedure;
+    return procedure;
   });
 
   return uniqueList;
