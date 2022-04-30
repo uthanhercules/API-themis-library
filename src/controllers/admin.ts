@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import passGen from 'generate-password';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import toast from '../messages/toasts';
@@ -9,12 +10,13 @@ const jwtSecret: any = process.env.TOKEN_SECRET;
 
 const signUpAdmin = async (req: any, res: any) => {
   const {
-    login, email, password: passwordWithoutHash, recoveryKey,
+    login, email, password,
   } = req.body;
 
   try {
     await adminValidation.signUp.validate(req.body);
     const emailExists = await adminModel.emailExists(email);
+    console.log(emailExists);
     if (emailExists.length > 0) {
       return res.status(400).json('Este email já está em uso');
     }
@@ -25,15 +27,19 @@ const signUpAdmin = async (req: any, res: any) => {
     }
 
     const id = crypto.randomUUID();
-    const password = await bcrypt.hash(passwordWithoutHash, 10);
+    const hash = await bcrypt.hash(password, 10);
+    const recovery_key = await passGen.generate({
+      length: 12, numbers: true, uppercase: true, lowercase: true, symbols: false,
+    });
 
     const dataBlock = {
       id,
       login,
       email,
-      password,
-      recoveryKey,
+      password: hash,
+      recovery_key,
     };
+
 
     await adminModel.signUp(dataBlock);
 
@@ -99,7 +105,7 @@ const authVerifyController = (req: any, res: any) => res.status(200).json(true);
 
 const updateAdmin = async (req: any, res: any) => {
   const {
-    id, login, password: passwordWithoutHash, email,
+    id, login, password, email,
   } = req.body;
 
   try {
@@ -117,11 +123,11 @@ const updateAdmin = async (req: any, res: any) => {
       }
     }
 
-    const password = await bcrypt.hash(passwordWithoutHash, 10);
+    const hash = await bcrypt.hash(password, 10);
 
     const dataBlock = {
       login,
-      password,
+      password: hash,
       email,
     };
 

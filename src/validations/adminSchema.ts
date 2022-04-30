@@ -4,7 +4,6 @@ const signUp = yup.object().shape({
   login: yup.string().required(),
   email: yup.string().required(),
   password: yup.string().required(),
-  recoveryKey: yup.string().required(),
 });
 
 const login = yup.object().shape({
