@@ -19,8 +19,8 @@ const listProcedures = async () => {
     .orderBy("updated", "DESC");
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number !== list[position - 1].procedure_number)
-      return procedure;
+    if (procedure.procedure_number === list[position - 1].procedure_number)
+      return;
     return procedure;
   });
 
@@ -34,8 +34,8 @@ const listProcedureByNumber = async (procedureNumber: number) => {
     .orderBy("updated", "DESC");
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number !== list[position - 1].procedure_number)
-      return procedure;
+    if (procedure.procedure_number === list[position - 1].procedure_number)
+      return;
     return procedure;
   });
 
