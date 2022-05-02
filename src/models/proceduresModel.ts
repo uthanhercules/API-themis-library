@@ -9,7 +9,13 @@ interface IProcedure {
 
 const listProcedures = async () => {
   const list = await knex("procedures")
-    .select("procedure_number", "customer_id", "name", "updated")
+    .select(
+      "procedure_number",
+      "customer_id",
+      "customer_name",
+      "name",
+      "updated"
+    )
     .orderBy("updated", "DESC");
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
