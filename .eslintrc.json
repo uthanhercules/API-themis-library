@@ -15,7 +15,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "linebreak-style": ["error", "windows"],
         "import/extensions": 0,
-        "import/no-unresolved": [{ "ignore": "./src" }]
+        "import/no-unresolved": 0
     }
 }
