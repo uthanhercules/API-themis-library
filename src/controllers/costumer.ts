@@ -110,4 +110,18 @@ const deleteCustomer = async (req: any, res: any) => {
   }
 };
 
-export = { createCustomer, deleteCustomer, updateCustomer };
+const listAllCustomers = async (req: any, res: any) => {
+  try {
+    const allCustumers = await customerModel.listCustomers();
+    return res.status(200).json(allCustumers);
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
+export = {
+  createCustomer,
+  deleteCustomer,
+  updateCustomer,
+  listAllCustomers,
+};

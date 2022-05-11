@@ -16,6 +16,7 @@ route.get("/auth-verify", admin.authVerifyController);
 route.put("/admin", admin.updateAdmin);
 route.get("/procedure/list-recent", procedure.listLastFiveProcedures);
 
+route.get("/customer", customer.listAllCustomers);
 route.post("/customer/create", customer.createCustomer);
 route.patch("/customer/update", customer.updateCustomer);
 route.delete("/customer/delete", customer.deleteCustomer);
