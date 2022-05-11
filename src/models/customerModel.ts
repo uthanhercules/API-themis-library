@@ -22,10 +22,16 @@ const excludeCustomer = async (id: string) => {
   await knex("customers").delete().where({ id });
 };
 
+const listCustomers = async () => {
+  const list = await knex("customers").select("full_name", "email");
+  return list;
+};
+
 export = {
   customerById,
   customerByEmail,
   newCustomer,
   updateCustomerData,
   excludeCustomer,
+  listCustomers,
 };
