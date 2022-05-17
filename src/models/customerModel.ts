@@ -23,7 +23,7 @@ const excludeCustomer = async (id: string) => {
 };
 
 const listCustomers = async () => {
-  const list = await knex("customers").select("full_name", "email");
+  const list = await knex("customers").select("id", "full_name", "email");
   return list;
 };
 
