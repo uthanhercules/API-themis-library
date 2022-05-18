@@ -25,7 +25,12 @@ const deleteCustomerSchema = yup.object().shape({
   id: yup.string().required(),
 });
 
+const listCustomerByIdSchema = yup.object().shape({
+  id: yup.string().required(),
+});
+
 export = {
+  listCustomerByIdSchema,
   deleteCustomerSchema,
   createCustomerSchema,
   updateCustomerEmailSchema,

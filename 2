@@ -5,7 +5,6 @@ import toast from "../messages/toasts";
 import customerModel from "../models/customerModel";
 
 const {
-  listCustomerByIdSchema,
   updateCustomerSchema,
   createCustomerSchema,
   deleteCustomerSchema,
@@ -122,10 +121,7 @@ const listAllCustomers = async (req: any, res: any) => {
 
 const listCustomerById = async (req: any, res: any) => {
   try {
-    await listCustomerByIdSchema.validate(req.body);
-
-    const { id } = req.body;
-    const allCustumers = await customerModel.customerByIdFullData(id);
+    const allCustumers = await customerModel.listCustomers();
     return res.status(200).json(allCustumers);
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));

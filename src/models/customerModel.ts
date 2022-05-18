@@ -5,6 +5,11 @@ const customerById = async (id: string) => {
   return customer;
 };
 
+const customerByIdFullData = async (id: string) => {
+  const customer = await knex("customers").select("id", "full_name", "email").where({ id });
+  return customer;
+};
+
 const customerByEmail = async (email: string) => {
   const customer = await knex("customers").select("id").where({ email });
   return customer;
@@ -29,6 +34,7 @@ const listCustomers = async () => {
 
 export = {
   customerById,
+  customerByIdFullData,
   customerByEmail,
   newCustomer,
   updateCustomerData,
