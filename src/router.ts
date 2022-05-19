@@ -16,7 +16,7 @@ route.put("/admin", admin.updateAdmin);
 route.post("/signup", admin.signUpAdmin);
 
 route.get("/customer", customer.listAllCustomers);
-route.get("/customer/list-unique", customer.listCustomerById);
+route.get("/customer/:id", customer.listCustomerById);
 route.post("/customer/create", customer.createCustomer);
 route.patch("/customer/update", customer.updateCustomer);
 route.delete("/customer/delete", customer.deleteCustomer);

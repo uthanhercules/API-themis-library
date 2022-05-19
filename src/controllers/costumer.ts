@@ -122,11 +122,11 @@ const listAllCustomers = async (req: any, res: any) => {
 
 const listCustomerById = async (req: any, res: any) => {
   try {
-    await listCustomerByIdSchema.validate(req.body);
+    await listCustomerByIdSchema.validate(req.params);
 
-    const { id } = req.body;
-    const allCustumers = await customerModel.customerByIdFullData(id);
-    return res.status(200).json(allCustumers);
+    const { id } = req.params;
+    const customer = await customerModel.customerByIdFullData(id);
+    return res.status(200).json(customer);
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
