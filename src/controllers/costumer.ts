@@ -118,7 +118,7 @@ const listAllCustomers = async (req: any, res: any) => {
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
-}
+};
 
 const listCustomerById = async (req: any, res: any) => {
   try {
@@ -130,12 +130,12 @@ const listCustomerById = async (req: any, res: any) => {
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
-};;
+};
 
 export = {
   createCustomer,
   deleteCustomer,
   updateCustomer,
   listAllCustomers,
-  listCustomerById
+  listCustomerById,
 };
