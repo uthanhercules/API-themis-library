@@ -15,7 +15,7 @@ const createProcedureStepSchema = yup.object().shape({
   name: yup.string().required(),
   customer_name: yup.string().required(),
   description: yup.string().required(),
-  files: yup.string().required(),
+  files: yup.string(),
   finished: yup.boolean().required(),
 });
 
@@ -30,7 +30,7 @@ const updateProcedureSchema = yup.object().shape({
   name: yup.string().required(),
   customer_name: yup.string().required(),
   description: yup.string().required(),
-  files: yup.string().required(),
+  files: yup.string(),
   finished: yup.boolean().required(),
 });
 
