@@ -21,9 +21,9 @@ route.post("/customer/create", customer.createCustomer);
 route.patch("/customer/update", customer.updateCustomer);
 route.delete("/customer/delete", customer.deleteCustomer);
 
+route.get("/procedure/list-recent", procedure.listLastFiveProcedures);
 route.get("/procedure", procedure.listAllProcedures);
 route.get("/procedure/:procedureNumber", procedure.listProcedureByNumber);
-route.get("/procedure/list-recent", procedure.listLastFiveProcedures);
 route.post("/procedure/create", procedure.createProcedure);
 route.post("/procedure/create-step", procedure.createProcedureStep);
 route.delete("/procedure/delete", procedure.deleteProcedure);
