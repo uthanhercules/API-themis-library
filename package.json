@@ -7,7 +7,7 @@
     "start": "nodemon dist/server.js",
     "build": "npx tsc",
     "dev": "npm run build && npm run start",
-    "lint": "npx prettier ./src --write"
+    "lint": "npx prettier --config ./prettierrc.json --write ./src"
   },
   "repository": {
     "type": "git",

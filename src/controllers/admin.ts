@@ -1,10 +1,10 @@
-import bcrypt from "bcrypt";
-import passGen from "generate-password";
-import crypto from "crypto";
-import jwt from "jsonwebtoken";
-import toast from "../messages/toasts";
-import adminModel from "../models/adminModel";
-import adminValidation from "../validations/adminSchema";
+import bcrypt from 'bcrypt';
+import passGen from 'generate-password';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import toast from '../messages/toasts';
+import adminModel from '../models/adminModel';
+import adminValidation from '../validations/adminSchema';
 
 const jwtSecret: any = process.env.TOKEN_SECRET;
 
@@ -16,12 +16,12 @@ const signUpAdmin = async (req: any, res: any) => {
     const emailExists = await adminModel.emailExists(email);
     console.log(emailExists);
     if (emailExists.length > 0) {
-      return res.status(400).json("Este email já está em uso");
+      return res.status(400).json('Este email já está em uso');
     }
 
     const loginExists = await adminModel.loginExists(login);
     if (loginExists.length > 0) {
-      return res.status(400).json("Este login já está em uso");
+      return res.status(400).json('Este login já está em uso');
     }
 
     const id = crypto.randomUUID();
@@ -44,7 +44,7 @@ const signUpAdmin = async (req: any, res: any) => {
 
     await adminModel.signUp(dataBlock);
 
-    return res.status(203).json("Administrador criado com sucesso!");
+    return res.status(203).json('Administrador criado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -72,7 +72,7 @@ const loginController = async (req: any, res: any) => {
         id: admin.id,
       },
       jwtSecret,
-      { expiresIn: "24h" }
+      { expiresIn: '24h' }
     );
 
     return res.status(200).json({ id: admin.id, token: signature });
@@ -100,7 +100,7 @@ const newPasswordController = async (req: any, res: any) => {
     const passwordHash = await bcrypt.hash(password, 10);
     await adminModel.changePassword(passwordHash, userId);
 
-    return res.status(203).json("Senha alterada com sucesso!");
+    return res.status(203).json('Senha alterada com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -116,13 +116,13 @@ const updateAdmin = async (req: any, res: any) => {
 
     const adminExists: any = await adminModel.emailExistsById(id);
     if (adminExists.length === 0) {
-      return res.status(400).json("Este administrador não existe");
+      return res.status(400).json('Este administrador não existe');
     }
 
     if (adminExists[0].email !== email) {
       const emailExists: any = await adminModel.emailExists(email);
       if (emailExists.length > 0) {
-        return res.status(400).json("Este email já está sendo usado");
+        return res.status(400).json('Este email já está sendo usado');
       }
     }
 
@@ -136,7 +136,7 @@ const updateAdmin = async (req: any, res: any) => {
 
     await adminModel.changeAdminData(dataBlock, id);
 
-    return res.status(200).json("Adinistrador atualizado com sucesso!");
+    return res.status(200).json('Adinistrador atualizado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }

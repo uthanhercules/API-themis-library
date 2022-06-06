@@ -1,4 +1,4 @@
-const yup = require("./config");
+const yup = require('./config');
 
 const createProcedureSchema = yup.object().shape({
   customer_id: yup.string().required(),

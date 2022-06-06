@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import crypto from "crypto";
-import proceduresModel from "../models/proceduresModel";
-import toast from "../messages/toasts";
-import procedureValidation from "../validations/proceduresSchema";
+import crypto from 'crypto';
+import proceduresModel from '../models/proceduresModel';
+import toast from '../messages/toasts';
+import procedureValidation from '../validations/proceduresSchema';
 
 const listLastFiveProcedures = async (req: any, res: any) => {
   try {
@@ -50,13 +50,13 @@ const createProcedure = async (req: any, res: any) => {
     );
 
     if (proceduresByNumber.length > 0) {
-      return res.status(400).json("Este processo já está registrado");
+      return res.status(400).json('Este processo já está registrado');
     }
 
     const actualDate = new Date();
     const updated = actualDate.getTime();
     const id = crypto.randomUUID();
-    const filesArray = files.split(", ");
+    const filesArray = files.split(', ');
     const filesFormated = JSON.stringify(filesArray);
 
     const dataBlock = {
@@ -73,7 +73,7 @@ const createProcedure = async (req: any, res: any) => {
 
     await proceduresModel.newProcedure(dataBlock);
 
-    return res.status(200).json("Processo criado com sucesso!");
+    return res.status(200).json('Processo criado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -96,16 +96,16 @@ const createProcedureStep = async (req: any, res: any) => {
     );
 
     if (proceduresByNumber.length === 0) {
-      return res.status(400).json("Este processo não está registrado");
+      return res.status(400).json('Este processo não está registrado');
     }
 
     if (proceduresByNumber[0].finished)
-      return res.status(400).json("Este processo já está finalizado");
+      return res.status(400).json('Este processo já está finalizado');
 
     const actualDate = new Date();
     const updated = actualDate.getTime();
     const id = crypto.randomUUID();
-    const filesArray = files.split(", ");
+    const filesArray = files.split(', ');
     const filesFormated = JSON.stringify(filesArray);
 
     const dataBlock = {
@@ -122,7 +122,7 @@ const createProcedureStep = async (req: any, res: any) => {
 
     await proceduresModel.newProcedure(dataBlock);
 
-    return res.status(200).json("Nova etapa do processo criada com sucesso!");
+    return res.status(200).json('Nova etapa do processo criada com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -138,12 +138,12 @@ const deleteProcedure = async (req: any, res: any) => {
     );
 
     if (proceduresByNumber.length === 0) {
-      return res.status(400).json("Este processo não está registrado");
+      return res.status(400).json('Este processo não está registrado');
     }
 
     await proceduresModel.excludeProcedure(procedure_number);
 
-    return res.status(203).json("Processo deletado com sucesso!");
+    return res.status(203).json('Processo deletado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
@@ -168,15 +168,15 @@ const updateProcedure = async (req: any, res: any) => {
       procedure_number
     );
     if (proceduresByNumber.length === 0) {
-      return res.status(400).json("Este processo não está registrado");
+      return res.status(400).json('Este processo não está registrado');
     }
 
     if (proceduresByNumber[0].finished)
-      return res.status(400).json("Este processo já está finalizado");
+      return res.status(400).json('Este processo já está finalizado');
 
     const actualDate = new Date();
     const updated = actualDate.getTime();
-    const filesArray = files.split(", ");
+    const filesArray = files.split(', ');
     const filesFormated = JSON.stringify(filesArray);
 
     const dataBlock = {
@@ -193,7 +193,7 @@ const updateProcedure = async (req: any, res: any) => {
 
     await proceduresModel.updateProcedure(dataBlock, id);
 
-    return res.status(200).json("Processo editado com sucesso!");
+    return res.status(200).json('Processo editado com sucesso!');
   } catch (error: any) {
     return res.status(400).json(toast.catchToast(error.message));
   }
