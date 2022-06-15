@@ -25,6 +25,18 @@ const listProcedureByNumber = async (req: any, res: any) => {
   }
 };
 
+const listAllProcedureByNumber = async (req: any, res: any) => {
+  const { procedureNumber } = req.params;
+  try {
+    const procedures: any = await proceduresModel.listAllProcedureByNumber(
+      procedureNumber
+    );
+    return res.status(200).json(procedures);
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 const listAllProcedures = async (req: any, res: any) => {
   try {
     const allProcedures = await proceduresModel.listProcedures();
@@ -207,4 +219,5 @@ export = {
   deleteProcedure,
   updateProcedure,
   listProcedureByNumber,
+  listAllProcedureByNumber,
 };

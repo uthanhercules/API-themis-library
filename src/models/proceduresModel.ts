@@ -19,8 +19,9 @@ const listProcedures = async () => {
     .orderBy('updated', 'DESC');
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number === list[position - 1].procedure_number)
-      return;
+    if (procedure.procedure_number === list[position - 1].procedure_number) {
+      return null;
+    }
     return procedure;
   });
 
@@ -34,12 +35,22 @@ const listProcedureByNumber = async (procedureNumber: number) => {
     .orderBy('updated', 'DESC');
   const uniqueList = list.filter((procedure: IProcedure, position: number) => {
     if (position === 0) return procedure;
-    if (procedure.procedure_number === list[position - 1].procedure_number)
-      return;
+    if (procedure.procedure_number === list[position - 1].procedure_number) {
+      return null;
+    }
     return procedure;
   });
 
   return uniqueList;
+};
+
+const listAllProcedureByNumber = async (procedureNumber: number) => {
+  const list = await knex('procedures')
+    .select('*')
+    .where({ procedure_number: procedureNumber })
+    .orderBy('updated', 'DESC');
+
+  return list;
 };
 
 const newProcedure = async (data: object) => {
@@ -59,6 +70,7 @@ const updateProcedure = async (data: object, id: string) => {
 export = {
   listProcedures,
   listProcedureByNumber,
+  listAllProcedureByNumber,
   newProcedure,
   excludeProcedure,
   updateProcedure,

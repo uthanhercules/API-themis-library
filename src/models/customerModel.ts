@@ -6,9 +6,7 @@ const customerById = async (id: string) => {
 };
 
 const customerByIdFullData = async (id: string) => {
-  const customer = await knex('customers')
-    .select('id', 'full_name', 'email')
-    .where({ id });
+  const customer = await knex('customers').select('*').where({ id });
   return customer;
 };
 
