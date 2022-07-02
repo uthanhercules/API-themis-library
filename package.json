@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && npm run start",
+    "start": "node dist/server.js",
     "build": "npx tsc",
-    "dev": "nodemon dist/server.js",
+    "dev": "npm run build && npm run start",
     "lint": "npx prettier --config ./prettierrc.json --write ./src"
   },
   "repository": {
