@@ -82,11 +82,11 @@ const loginController = async (req: any, res: any) => {
 };
 
 const newPasswordController = async (req: any, res: any) => {
-  const { userId, password, recoveryKey } = req.body;
+  const { login, password, recoveryKey } = req.body;
 
   try {
     await adminValidation.newPassword.validate(req.body);
-    const adminList = await adminModel.adminById(userId);
+    const adminList = await adminModel.adminByLogin(login);
     const admin = adminList[0];
 
     if (!admin) {
@@ -98,7 +98,7 @@ const newPasswordController = async (req: any, res: any) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    await adminModel.changePassword(passwordHash, userId);
+    await adminModel.changePassword(passwordHash, admin.id);
 
     return res.status(203).json('Senha alterada com sucesso!');
   } catch (error: any) {

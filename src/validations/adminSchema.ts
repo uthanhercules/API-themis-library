@@ -12,7 +12,7 @@ const login = yup.object().shape({
 });
 
 const newPassword = yup.object().shape({
-  userId: yup.string().required(),
+  login: yup.string().required(),
   password: yup.string().required(),
   recoveryKey: yup.string().required(),
 });
