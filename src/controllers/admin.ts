@@ -142,10 +142,23 @@ const updateAdmin = async (req: any, res: any) => {
   }
 };
 
+const listAdminById = async (req: any, res: any) => {
+  try {
+    await adminValidation.listAdminByIdSchema.validate(req.params);
+
+    const { id } = req.params;
+    const admin = await adminModel.adminDataById(id);
+    return res.status(200).json(admin);
+  } catch (error: any) {
+    return res.status(400).json(toast.catchToast(error.message));
+  }
+};
+
 export = {
   signUpAdmin,
   loginController,
   newPasswordController,
   authVerifyController,
   updateAdmin,
+  listAdminById,
 };

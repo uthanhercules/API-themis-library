@@ -23,9 +23,14 @@ const updateAdmin = yup.object().shape({
   password: yup.string().required(),
 });
 
+const listAdminByIdSchema = yup.object().shape({
+  id: yup.string().required(),
+});
+
 export = {
   signUp,
   login,
   newPassword,
   updateAdmin,
+  listAdminByIdSchema,
 };

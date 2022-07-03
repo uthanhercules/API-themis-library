@@ -12,7 +12,8 @@ route.post('/new-password', admin.newPasswordController);
 
 route.use(loginVerify);
 route.get('/auth-verify', admin.authVerifyController);
-route.put('/admin', admin.updateAdmin);
+route.put('/admin/:id', admin.updateAdmin);
+route.put('/admin/update', admin.updateAdmin);
 route.post('/signup', admin.signUpAdmin);
 
 route.get('/customer', customer.listAllCustomers);

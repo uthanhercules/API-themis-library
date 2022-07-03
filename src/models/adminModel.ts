@@ -41,6 +41,13 @@ const changeAdminData = async (data: object, id: string) => {
   await knex('users_admin').update(data).where({ id });
 };
 
+const adminDataById = async (id: string) => {
+  const list = await knex('users_admin')
+    .select('login', 'email', 'password')
+    .where({ id });
+  return list;
+};
+
 export = {
   signUp,
   emailExists,
@@ -50,4 +57,5 @@ export = {
   adminById,
   changePassword,
   changeAdminData,
+  adminDataById,
 };
