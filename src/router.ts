@@ -12,7 +12,7 @@ route.post('/new-password', admin.newPasswordController);
 
 route.use(loginVerify);
 route.get('/auth-verify', admin.authVerifyController);
-route.put('/admin/:id', admin.updateAdmin);
+route.get('/admin/:id', admin.listAdminById);
 route.put('/admin/update', admin.updateAdmin);
 route.post('/signup', admin.signUpAdmin);
 
